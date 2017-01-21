@@ -1,6 +1,7 @@
 module RSpec
   module Its
     def its_call(*options, &block)
+      # rubocop:disable Lint/NestedMethodDefinition
       describe("call") do
         let(:__call_subject) do
           -> { subject }
