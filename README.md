@@ -1,10 +1,17 @@
+# Saharspec: Specs DRY as Sahara
+
 **saharspec** is a set of additions to RSpec. It's name is a pun on Russian word "сахар"
 ("sahar", means "sugar") and Sahara desert. So, it is a set of RSpec sugar, to make your
-specs dry as Sahara.
+specs dry as a desert.
 
 ## Usage
 
-`gem install saharspec`
+Unreleased at RubyGems yet (and untested, though extracted from production code)! But you
+can try it by adding to your Gemfile
+
+```ruby
+gem 'saharspec', git: 'https://github.com/zverok/saharspec.git'
+```
 
 Then, probably in your `spec_helper.rb`
 
@@ -60,7 +67,7 @@ subject { fetcher }
 its_call { is_expected.to send_message(Net::HTTP, :get).with('http://google.com').returning('not this time') }
 ```
 
-Note: there is [reasons]() why it is not in rspec-matchers, though, not very persuative for
+Note: there is [reasons](https://github.com/rspec/rspec-expectations/issues/934) why it is not in rspec-mocks, though, not very persuative for
 me.
 
 ### `and_not`
@@ -68,7 +75,7 @@ me.
 ```ruby
 # before
 it {
-  expect { kill_alligator }.to change(Alligator, :count).by(1)
+  expect { kill_alligator }.to change(Alligator, :count).by(-1)
 }
 it {
   expect { kill_alligator }.not_to change(Hyppopotam, :count)
@@ -79,7 +86,7 @@ RSpec.define_negated_matcher :not_to_change, :change
 
 it {
   expect { kill_alligator }
-    .to change(Alligator, :count).by(1)
+    .to change(Alligator, :count).by(-1)
     .and not_to_change(Hyppopotam, :count)
 }
 
@@ -89,6 +96,4 @@ it {
     .to change(Alligator, :count).by(1)
     .and_not change(Hyppopotam, :count)
 }
-
-# after: but your first matcher STILL should be positive, or everything is broken
 ```
