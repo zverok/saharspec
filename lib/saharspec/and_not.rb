@@ -1,3 +1,5 @@
+require 'rspec/matchers'
+
 # NB: It is a long-living discussion in RSpec development about this
 # or similar feature, see for example https://github.com/rspec/rspec-expectations/issues/493
 #
