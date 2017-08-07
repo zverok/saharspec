@@ -6,7 +6,7 @@ module RSpec
         let(:__its_map_subject) do
           if Array === attribute
             if Hash === subject
-              attribute.inject(subject) {|inner, attr| inner.map { |h| h[attr] } }
+              attribute.inject(subject) { |inner, attr| inner.map { |h| h[attr] } }
             else
               subject.map { |inner| inner[*attribute] }
             end

@@ -1,0 +1,28 @@
+inherit_from: .rubocop_todo.yml
+#require: rubocop-rspec
+
+AllCops:
+  Include:
+    - 'lib/**/*'
+  Exclude:
+    - Gemfile
+    - Rakefile
+    - '*.gemspec'
+    - 'tmp/**'
+  DisplayCopNames: true
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Style/PredicateName:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: '{}'

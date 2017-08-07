@@ -1,0 +1,2 @@
+-r ./spec/spec_helper
+--color
