@@ -8,6 +8,33 @@ module Saharspec
         @method = method
       end
 
+      # DSL
+      def with(*arguments)
+        @arguments = arguments
+        self
+      end
+
+      def returning(res)
+        @res = res
+        self
+      end
+
+      def calling_original
+        @call_original = true
+        self
+      end
+
+      def exactly(n)
+        @times = n
+        self
+      end
+
+      def times
+        fail NoMethodError unless @times
+        self
+      end
+
+      # Matching
       def matches?(subject)
         run(subject)
         expect(@target).to expectation
@@ -20,6 +47,7 @@ module Saharspec
         true
       end
 
+      # Static properties
       def supports_block_expectations?
         true
       end
@@ -45,11 +73,17 @@ module Saharspec
       end
 
       def allower
-        receive(@method)
+        receive(@method).tap do |a|
+          a.and_return(@res) if @res
+          a.and_call_original if @call_original
+        end
       end
 
       def expectation
-        have_received(@method)
+        have_received(@method).tap do |e|
+          e.with(*@arguments) if @arguments
+          e.exactly(@times).times if @times
+        end
       end
     end
   end
