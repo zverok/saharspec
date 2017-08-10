@@ -34,6 +34,14 @@ module Saharspec
         self
       end
 
+      def once
+        exactly(1)
+      end
+
+      def twice
+        exactly(2)
+      end
+
       # Matching
       def matches?(subject)
         run(subject)
