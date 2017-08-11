@@ -1,12 +1,14 @@
-module RSpec
-  module Its
+module Saharspec
+  module ItsMap
     def its_map(attribute, *options, &block) # rubocop:disable Metrics/AbcSize
       # rubocop:disable Lint/NestedMethodDefinition
       describe("map(&:#{attribute})") do
         let(:__its_map_subject) do
           if Array === attribute
-            if Hash === subject
-              attribute.inject(subject) { |inner, attr| inner.map { |h| h[attr] } }
+            if subject.all? { |s| Hash === s }
+              subject.map { |s|
+                attribute.inject(s) { |inner, attr| inner[attr] }
+              }
             else
               subject.map { |inner| inner[*attribute] }
             end
@@ -32,3 +34,10 @@ module RSpec
     end
   end
 end
+
+RSpec.configure do |rspec|
+  rspec.extend Saharspec::ItsMap
+  rspec.backtrace_exclusion_patterns << %r(/lib/saharspec/its/map)
+end
+
+RSpec::SharedContext.send(:include, Saharspec::ItsMap)
