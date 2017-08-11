@@ -26,3 +26,9 @@ Metrics/LineLength:
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     default: '{}'
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/Documentation:
+  Enabled: false

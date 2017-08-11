@@ -1,11 +1,17 @@
 require 'saharspec/matchers/send_message'
 
 RSpec.describe :send_message do
-  let(:obj) { Object.new.tap { |o| def o.meth; 10 end } }
+  let(:obj) {
+    Object.new.tap { |o|
+      def o.meth
+        10
+      end
+    }
+  }
 
   context 'simple' do
     it { expect { obj.meth }.to send_message(obj, :meth) }
-    it { expect {  }.not_to send_message(obj, :meth) }
+    it { expect {}.not_to send_message(obj, :meth) }
     it { expect { expect {}.to send_message(obj, :meth1) }.to raise_error(NoMethodError) }
   end
 
@@ -13,7 +19,9 @@ RSpec.describe :send_message do
     it { expect { obj.meth(1, 2, 3) }.to send_message(obj, :meth).with(1, 2, 3) }
     it { expect { obj.meth(1, 3, 2) }.not_to send_message(obj, :meth).with(1, 2, 3) }
     it { expect { obj.meth([1, 3, 2]) }.to send_message(obj, :meth).with(array_including(2, 3)) }
-    it { expect { obj.meth([1, 3, 2]) }.not_to send_message(obj, :meth).with(array_including(3, 4)) }
+    it {
+      expect { obj.meth([1, 3, 2]) }.not_to send_message(obj, :meth).with(array_including(3, 4))
+    }
 
     xit 'checks count'
   end

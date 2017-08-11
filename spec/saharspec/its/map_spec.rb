@@ -33,8 +33,7 @@ RSpec.describe :its_map do
     context 'nested hashes' do
       subject { [{a: {b: 1}}, {a: {b: 2}}, {a: {b: 3}}] }
 
-      its_map([:a, :b]) { is_expected.to eq [1, 2, 3] }
+      its_map(%i[a b]) { is_expected.to eq [1, 2, 3] }
     end
   end
-
 end

@@ -30,7 +30,7 @@ module Saharspec
       end
 
       def times
-        fail NoMethodError unless @times
+        raise NoMethodError unless @times
         self
       end
 
@@ -61,7 +61,7 @@ module Saharspec
       end
 
       def description
-        'to send %p.%s' % [@target, @method]
+        format('to send %p.%s', @target, @method)
       end
 
       def failure_message
@@ -75,7 +75,9 @@ module Saharspec
       private
 
       def run(subject)
-        fail NoMethodError, "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}" unless @target.respond_to?(@method)
+        @target.respond_to?(@method) or
+          raise NoMethodError,
+                "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}"
         allow(@target).to allower
         subject.call
       end

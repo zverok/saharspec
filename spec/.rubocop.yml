@@ -1,0 +1,7 @@
+inherit_from: ../.rubocop.yml
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/Semicolon:
+  Enabled: false

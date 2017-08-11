@@ -1,14 +1,14 @@
 module Saharspec
   module ItsMap
-    def its_map(attribute, *options, &block) # rubocop:disable Metrics/AbcSize
+    def its_map(attribute, *options, &block) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Lint/NestedMethodDefinition
       describe("map(&:#{attribute})") do
         let(:__its_map_subject) do
-          if Array === attribute
-            if subject.all? { |s| Hash === s }
-              subject.map { |s|
+          if Array === attribute # rubocop:disable Style/CaseEquality
+            if subject.all? { |s| Hash === s } # rubocop:disable Style/CaseEquality
+              subject.map do |s|
                 attribute.inject(s) { |inner, attr| inner[attr] }
-              }
+              end
             else
               subject.map { |inner| inner[*attribute] }
             end
@@ -37,7 +37,7 @@ end
 
 RSpec.configure do |rspec|
   rspec.extend Saharspec::ItsMap
-  rspec.backtrace_exclusion_patterns << %r(/lib/saharspec/its/map)
+  rspec.backtrace_exclusion_patterns << %r{/lib/saharspec/its/map}
 end
 
 RSpec::SharedContext.send(:include, Saharspec::ItsMap)
