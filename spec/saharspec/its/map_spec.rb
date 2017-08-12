@@ -36,4 +36,11 @@ RSpec.describe :its_map do
       its_map(%i[a b]) { is_expected.to eq [1, 2, 3] }
     end
   end
+
+  describe 'metadata passing' do
+    before(:each, :some_metadata) { subject << 'foo' }
+
+    its_map(:length) { is_expected.to eq [4, 2, 6] }
+    its_map(:length, :some_metadata) { is_expected.to eq [4, 2, 6, 3] }
+  end
 end
