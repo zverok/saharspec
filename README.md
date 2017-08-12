@@ -6,8 +6,7 @@ specs dry as a desert.
 
 ## Usage
 
-Unreleased at RubyGems yet (and untested, though extracted from production code)! But you
-can try it by adding to your Gemfile
+Unreleased at RubyGems yet! But you can try it by adding to your Gemfile
 
 ```ruby
 gem 'saharspec', git: 'https://github.com/zverok/saharspec.git'
@@ -18,7 +17,7 @@ Then, probably in your `spec_helper.rb`
 ```ruby
 require 'saharspec'
 # or feature-by-feature
-require 'saharspec/its_map'
+require 'saharspec/its/map'
 ```
 
 ## Parts
@@ -34,6 +33,8 @@ subject { html_document.search('ul#menu > li') }
 it { expect(subject.map(&:text)).to all not_be_empty }
 
 # after
+require 'saharspec/its/map'
+
 its_map(:text) { are_expected.to all not_be_empty }
 ```
 
@@ -46,6 +47,8 @@ subject { some_operation_that_may_fail }
 it { expect { subject }.to raise_error(...) }
 
 # after
+require 'saharspec/its/call'
+
 its_call { is_expected.to raise_error(...) }
 ```
 
@@ -59,6 +62,8 @@ it {
 }
 
 # after
+require 'saharspec/matchers/send_message'
+
 it {
   expect { fetcher }.to send_message(Net::HTTP, :get).with('http://google.com').returning('not this time')
 }
@@ -70,30 +75,32 @@ its_call { is_expected.to send_message(Net::HTTP, :get).with('http://google.com'
 Note: there is [reasons](https://github.com/rspec/rspec-expectations/issues/934) why it is not in rspec-mocks, though, not very persuative for
 me.
 
-### `and_not`
+### `eq_multiline(text)` matcher
+
+Dedicated to checking some multiline text generators.
 
 ```ruby
-# before
-it {
-  expect { kill_alligator }.to change(Alligator, :count).by(-1)
-}
-it {
-  expect { kill_alligator }.not_to change(Hyppopotam, :count)
-}
+# before: one option
 
-# before + official RSpec recomendation to define negated matchers everywhere
-RSpec.define_negated_matcher :not_to_change, :change
+  it { expect(generated_code).to eq("def method\n  a = @b**2\n  return a + @b\nend") }
 
-it {
-  expect { kill_alligator }
-    .to change(Alligator, :count).by(-1)
-    .and not_to_change(Hyppopotam, :count)
-}
+# before: another option
+  it {
+    expect(generated_code).to eq(%{def method
+  a = @b**2
+  return a + @b
+end})
+  }
 
 # after
-it {
-  expect { kill_alligator }
-    .to change(Alligator, :count).by(1)
-    .and_not change(Hyppopotam, :count)
-}
+require 'saharspec/matchers/eq_multiline
+  it {
+    expect(generated_code).to eq_multiline(%{
+      |def method
+      |  a = @b**2
+      |  return a + @b
+      |end
+    })
+  }
 ```
+(empty lines before/after are removed, text deindented up to `|` sign)
