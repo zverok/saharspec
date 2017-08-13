@@ -99,6 +99,7 @@ module Saharspec
   end
 end
 
+# @private
 module RSpec
   module Matchers
     def send_message(target, method)

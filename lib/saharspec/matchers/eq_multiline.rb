@@ -22,6 +22,7 @@ module Saharspec
   end
 end
 
+# @private
 module RSpec
   module Matchers
     def eq_multiline(expected)
