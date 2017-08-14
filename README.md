@@ -68,7 +68,8 @@ end})
   }
 
 # after
-require 'saharspec/matchers/eq_multiline
+require 'saharspec/matchers/eq_multiline'
+
   it {
     expect(generated_code).to eq_multiline(%{
       |def method
