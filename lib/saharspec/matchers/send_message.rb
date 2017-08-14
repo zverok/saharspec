@@ -1,5 +1,6 @@
 module Saharspec
   module Matchers
+    # @private
     class SendMessage
       include RSpec::Mocks::ExampleMethods
 
@@ -99,9 +100,37 @@ module Saharspec
   end
 end
 
-# @private
 module RSpec
   module Matchers
+    # Checks if the (block) subject sends specified message to specified object.
+    #
+    # @example
+    #   # before:
+    #   specify {
+    #      allow(double).to receive(:fetch)
+    #      code_being_tested
+    #      expect(double).to have_received(:fetch).with(something)
+    #   }
+    #
+    #   # after:
+    #   require 'saharspec/matchers/send_message'
+    #   it { expect { code_being_tested }.to send_message(double, :fetch).with(something) }
+    #   # after + its_call
+    #   require 'saharspec/its/call'
+    #   subject { code_being_tested }
+    #   its_call { is_expected.to send_message(double, :fetch).with(something) }
+    #
+    #
+    # @param target Object which expects message, double or real object
+    # @param method [Symbol] Message being expected
+    #
+    # @return Instance of a matcher, allowing the following additional methods:
+    #
+    #   * `once`, `twice`, `exactly(n).times`;
+    #   * `with(arguments)`;
+    #   * `calling_original`;
+    #   * `returning(response)`.
+    #
     def send_message(target, method)
       Saharspec::Matchers::SendMessage.new(target, method)
     end
