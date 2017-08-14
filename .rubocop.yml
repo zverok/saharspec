@@ -21,7 +21,7 @@ Metrics/BlockLength:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 100
+  Max: 120
 
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
