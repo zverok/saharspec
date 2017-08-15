@@ -1,20 +1,12 @@
+require_relative '../util'
+
 module Saharspec
   module Matchers
     # @private
     class EqMultiline < RSpec::Matchers::BuiltIn::Eq
+      include Util
       def initialize(expected)
-        # 1. for all lines looking like "<spaces>|" -- remove this.
-        # 2. remove trailing spaces
-        # 3. preserve trailing spaces ending with "|", but remove the pipe
-        # 4. remove one empty line before & after, allows prettier %Q{}
-        # TODO: check if all lines start with "|"?
-        super(
-          expected
-            .gsub(/^ *\|/, '')
-            .gsub(/ +$/, '')
-            .gsub(/\|$/, '')
-            .gsub(/(\A *\n|\n *\z)/, '')
-        )
+        super(multiline(expected))
       end
     end
   end
