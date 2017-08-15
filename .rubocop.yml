@@ -9,6 +9,7 @@ AllCops:
     - Rakefile
     - '*.gemspec'
     - 'tmp/**'
+    - 'lib/saharspec/matchers/request_webmock.rb'
   DisplayCopNames: true
 
 Layout/SpaceInsideHashLiteralBraces:
