@@ -1,2 +1,4 @@
 tmp
 Gemfile.lock
+.yardoc
+pkg
