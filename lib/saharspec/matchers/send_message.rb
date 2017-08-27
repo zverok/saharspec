@@ -3,6 +3,7 @@ module Saharspec
     # @private
     class SendMessage
       include RSpec::Mocks::ExampleMethods
+      include RSpec::Matchers::Composable
 
       def initialize(target, method)
         @target = target
