@@ -3,6 +3,7 @@ module Saharspec
     # @private
     class SendMessage
       include RSpec::Mocks::ExampleMethods
+      include RSpec::Matchers::Composable
 
       def initialize(target, method)
         @target = target
@@ -76,7 +77,7 @@ module Saharspec
       private
 
       def run(subject)
-        @target.respond_to?(@method) or
+        @target.respond_to?(@method, true) or
           raise NoMethodError,
                 "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}"
         allow(@target).to allower
