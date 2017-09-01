@@ -51,6 +51,19 @@ RSpec.describe :send_message do
     }
   end
 
+  context 'private methods' do
+    let(:klass) {
+      Object.new.tap { |o|
+        def o.meth
+          10
+        end
+
+        o.send(:private, :meth)
+      }
+    }
+    it { expect { obj.__send__(:meth) }.to send_message(obj, :meth) }
+  end
+
   context 'ordered'
   context 'composability' do
     let(:obj1) {
