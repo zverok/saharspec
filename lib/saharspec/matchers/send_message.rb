@@ -32,7 +32,7 @@ module Saharspec
       end
 
       def times
-        raise NoMethodError unless @times
+        fail NoMethodError unless @times
         self
       end
 
@@ -83,8 +83,8 @@ module Saharspec
 
       def run(subject)
         @target.respond_to?(@method, true) or
-          raise NoMethodError,
-                "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}"
+          fail NoMethodError,
+               "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}"
         allow(@target).to allower
         subject.call
       end

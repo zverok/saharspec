@@ -19,7 +19,7 @@ module Saharspec
         @matcher.supports_block_expectations?
       end
 
-      def method_missing(m, *a, &b)
+      def method_missing(m, *a, &b) # rubocop:disable Style/MethodMissing
         if @matcher
           @matcher.send(m, *a, &b)
         else
@@ -27,6 +27,14 @@ module Saharspec
         end
 
         self
+      end
+
+      def respond_to_missing?(method, include_private = false)
+        if @matcher
+          @matcher.__send__(:respond_to_missing?, method, include_private)
+        else
+          @delegator.respond_to_missing?(method, include_private)
+        end
       end
 
       class Delegator
