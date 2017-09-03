@@ -5,3 +5,6 @@ Style/BlockDelimiters:
 
 Style/Semicolon:
   Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
