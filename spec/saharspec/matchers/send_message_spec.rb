@@ -64,8 +64,7 @@ RSpec.describe :send_message do
     it { expect { obj.__send__(:meth) }.to send_message(obj, :meth) }
   end
 
-  context 'ordered'
-  context 'composability' do
+  context 'several calls' do
     let(:obj1) {
       Object.new.tap { |o|
         def o.meth
@@ -81,10 +80,28 @@ RSpec.describe :send_message do
       }
     }
 
-    it {
-      expect { obj1.meth; obj2.meth }
-        .to send_message(obj1, :meth)
-        .and send_message(obj2, :meth)
-    }
+    context 'composability' do
+      it {
+        expect { obj1.meth; obj2.meth }
+          .to send_message(obj1, :meth)
+          .and send_message(obj2, :meth)
+      }
+    end
+
+    context 'ordered' do
+      it {
+        expect { obj1.meth; obj2.meth }
+          .to send_message(obj1, :meth).ordered
+          .and send_message(obj2, :meth).ordered
+      }
+
+      it {
+        expect {
+          expect { obj2.meth; obj1.meth }
+            .to send_message(obj1, :meth).ordered
+            .and send_message(obj2, :meth).ordered
+        }.to raise_error(/out of order/)
+      }
+    end
   end
 end

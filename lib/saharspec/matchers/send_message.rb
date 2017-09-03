@@ -44,6 +44,11 @@ module Saharspec
         exactly(2)
       end
 
+      def ordered
+        @ordered = true
+        self
+      end
+
       # Matching
       def matches?(subject)
         run(subject)
@@ -95,6 +100,7 @@ module Saharspec
         have_received(@method).tap do |e|
           e.with(*@arguments) if @arguments
           e.exactly(@times).times if @times
+          e.ordered if @ordered
         end
       end
     end
