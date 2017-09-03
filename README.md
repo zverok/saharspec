@@ -81,6 +81,17 @@ require 'saharspec/matchers/eq_multiline'
 ```
 (empty lines before/after are removed, text deindented up to `|` sign)
 
+### `dont`: matcher negation
+
+```ruby
+# before
+RSpec.define_negated_matcher :not_change, :change
+it { expect { code }.to do_stuff.and not_change(obj, :attr) }
+
+# after: no `define_negated_matcher` needed
+it { expect { code }.to do_stuff.and dont.change(obj, :attr) }
+```
+
 ### `its`-addons
 
 **Notice**: There are different opinions on usability/reasonability of `its(:attribute)` syntax,

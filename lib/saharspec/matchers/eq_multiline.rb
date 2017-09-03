@@ -32,7 +32,7 @@ module RSpec
     #       |end
     #     })
     #
-    # @param [String]
+    # @param expected [String]
     def eq_multiline(expected)
       Saharspec::Matchers::EqMultiline.new(expected)
     end
