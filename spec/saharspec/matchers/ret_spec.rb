@@ -9,6 +9,17 @@ RSpec.describe :ret do
   end
 
   context 'subject responds to #call' do
+    let(:cls) {
+      Class.new {
+        def call
+          5
+        end
+      }
+    }
+    subject { cls.new }
+
+    it { is_expected.to ret 5 }
+    it { is_expected.not_to ret 3 }
   end
 
   context 'subject is not callable' do
