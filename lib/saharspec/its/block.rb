@@ -31,7 +31,7 @@ module Saharspec
       #
       def its_block(*options, &block)
         # rubocop:disable Lint/NestedMethodDefinition
-        describe('call') do
+        describe('as block') do
           let(:__call_subject) do
             -> { subject }
           end
