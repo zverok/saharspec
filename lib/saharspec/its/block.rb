@@ -1,13 +1,13 @@
 module Saharspec
   module Its
-    module Call
+    module Block
       # Creates nested example which converts current subject to a block-subject.
       #
       # @example
       #
       #    subject { calc_something(params) }
       #
-      #    # without its_call
+      #    # without its_block
       #    context 'with this params'
       #      it { expect { subject }.to change(some, :value).by(1) }
       #    end
@@ -16,20 +16,20 @@ module Saharspec
       #      it { expect { subject }.to raise_error(SomeError) }
       #    end
       #
-      #    # with its_call
+      #    # with its_block
       #    context 'with this params'
-      #      its_call { is_expected.to change(some, :value).by(1) }
+      #      its_block { is_expected.to change(some, :value).by(1) }
       #    end
       #
       #    context 'with that params'
-      #      its_call { is_expected.to raise_error(SomeError) }
+      #      its_block { is_expected.to raise_error(SomeError) }
       #    end
       #
       # @param options Other options that can be passed to usual RSpec example.
       # @param block [Proc] The test itself. Inside it, `is_expected` (or `are_expected`) is analog of
       #   `expect { subject }`.
       #
-      def its_call(*options, &block)
+      def its_block(*options, &block)
         # rubocop:disable Lint/NestedMethodDefinition
         describe('call') do
           let(:__call_subject) do
@@ -49,8 +49,8 @@ module Saharspec
 end
 
 RSpec.configure do |rspec|
-  rspec.extend Saharspec::Its::Call
-  rspec.backtrace_exclusion_patterns << %r{/lib/saharspec/its/call}
+  rspec.extend Saharspec::Its::Block
+  rspec.backtrace_exclusion_patterns << %r{/lib/saharspec/its/block}
 end
 
-RSpec::SharedContext.send(:include, Saharspec::Its::Call)
+RSpec::SharedContext.send(:include, Saharspec::Its::Block)
