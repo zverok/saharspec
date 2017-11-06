@@ -1,46 +1,41 @@
 module Saharspec
   module Its
     module Call
-      # Creates nested example which converts current subject to a block-subject.
+      # For `#call`-able subject, creates nested example where subject is called with arguments
+      # provided, allowing to apply block matchers like `.to change(something)` or `.to raise_error`
+      # to different calls in a DRY way.
+      #
+      # Also, plays really well with {RSpec::Matchers#ret #ret} block matcher.
       #
       # @example
+      #    let(:array) { %i[a b c] }
       #
-      #    subject { calc_something(params) }
+      #    describe '#[]' do
+      #      subject { array.method(:[]) }
       #
-      #    # without its_call
-      #    context 'with this params'
-      #      it { expect { subject }.to change(some, :value).by(1) }
+      #      its_call(1) { is_expected.to ret :b }
+      #      its_call(1..-1) { is_expected.to ret %i[b c] }
+      #      its_call('foo') { is_expected.to raise_error TypeError }
       #    end
       #
-      #    context 'with that params'
-      #      it { expect { subject }.to raise_error(SomeError) }
+      #    describe '#push' do
+      #      subject { array.method(:push) }
+      #      its_call(5) { is_expected.to change(array, :length).by(1) }
       #    end
       #
-      #    # with its_call
-      #    context 'with this params'
-      #      its_call { is_expected.to change(some, :value).by(1) }
-      #    end
-      #
-      #    context 'with that params'
-      #      its_call { is_expected.to raise_error(SomeError) }
-      #    end
-      #
-      # @param options Other options that can be passed to usual RSpec example.
-      # @param block [Proc] The test itself. Inside it, `is_expected` (or `are_expected`) is analog of
-      #   `expect { subject }`.
-      #
-      def its_call(*options, &block)
+      def its_call(*args, &block)
         # rubocop:disable Lint/NestedMethodDefinition
         describe('call') do
           let(:__call_subject) do
-            -> { subject }
+            warn 'No need to use its_call without arguments, just it {} will work' if args.empty?
+            -> { subject.call(*args) }
           end
 
           def is_expected
             expect(__call_subject)
           end
 
-          example(nil, *options, &block)
+          example(nil, &block)
         end
         # rubocop:enable Lint/NestedMethodDefinition
       end

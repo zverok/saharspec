@@ -32,7 +32,7 @@ module Saharspec
       end
 
       def times
-        raise NoMethodError unless @times
+        fail NoMethodError unless @times
         self
       end
 
@@ -42,6 +42,11 @@ module Saharspec
 
       def twice
         exactly(2)
+      end
+
+      def ordered
+        @ordered = true
+        self
       end
 
       # Matching
@@ -78,8 +83,8 @@ module Saharspec
 
       def run(subject)
         @target.respond_to?(@method, true) or
-          raise NoMethodError,
-                "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}"
+          fail NoMethodError,
+               "undefined method `#{@method}' for#{@target.inspect}:#{@target.class}"
         allow(@target).to allower
         subject.call
       end
@@ -95,6 +100,7 @@ module Saharspec
         have_received(@method).tap do |e|
           e.with(*@arguments) if @arguments
           e.exactly(@times).times if @times
+          e.ordered if @ordered
         end
       end
     end
@@ -115,12 +121,14 @@ module RSpec
     #
     #   # after:
     #   require 'saharspec/matchers/send_message'
-    #   it { expect { code_being_tested }.to send_message(double, :fetch).with(something) }
-    #   # after + its_call
-    #   require 'saharspec/its/call'
-    #   subject { code_being_tested }
-    #   its_call { is_expected.to send_message(double, :fetch).with(something) }
     #
+    #   it { expect { code_being_tested }.to send_message(double, :fetch).with(something) }
+    #
+    #   # after + its_block
+    #   require 'saharspec/its/block'
+    #
+    #   subject { code_being_tested }
+    #   its_block { is_expected.to send_message(double, :fetch).with(something) }
     #
     # @param target Object which expects message, double or real object
     # @param method [Symbol] Message being expected

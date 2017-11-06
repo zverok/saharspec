@@ -33,3 +33,6 @@ Style/AndOr:
 
 Style/Documentation:
   Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: semantic
