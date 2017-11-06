@@ -121,12 +121,14 @@ module RSpec
     #
     #   # after:
     #   require 'saharspec/matchers/send_message'
-    #   it { expect { code_being_tested }.to send_message(double, :fetch).with(something) }
-    #   # after + its_call
-    #   require 'saharspec/its/call'
-    #   subject { code_being_tested }
-    #   its_call { is_expected.to send_message(double, :fetch).with(something) }
     #
+    #   it { expect { code_being_tested }.to send_message(double, :fetch).with(something) }
+    #
+    #   # after + its_block
+    #   require 'saharspec/its/block'
+    #
+    #   subject { code_being_tested }
+    #   its_block { is_expected.to send_message(double, :fetch).with(something) }
     #
     # @param target Object which expects message, double or real object
     # @param method [Symbol] Message being expected

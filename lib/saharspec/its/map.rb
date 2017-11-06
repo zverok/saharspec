@@ -13,7 +13,7 @@ module Saharspec
       #   # with attribute chain
       #   its_map(:'reverse.upcase') { is_expected.to eq %w[TSET EM ESAELP] }
       #
-      #   # with Hash (or any other object re sponding to `#[]`)
+      #   # with Hash (or any other object responding to `#[]`)
       #   subject {
       #     [
       #       {title: 'Slaughterhouse Five', author: {first: 'Kurt', last: 'Vonnegut'}},

@@ -11,7 +11,8 @@ module Saharspec
       end
 
       def match(_expected, actual)
-        @matcher or fail(ArgumentError, 'dont matcher used without any negated matcher')
+        @matcher or
+          fail(ArgumentError, '`dont` matcher used without any matcher to negate. Usage: dont.other_matcher(args)')
         !@matcher.matches?(actual)
       end
 
@@ -31,7 +32,7 @@ module Saharspec
 
       def respond_to_missing?(method, include_private = false)
         if @matcher
-          @matcher.__send__(:respond_to_missing?, method, include_private)
+          @matcher.respond_to?(method, include_private)
         else
           @delegator.respond_to_missing?(method, include_private)
         end
@@ -46,7 +47,9 @@ end
 
 module RSpec
   module Matchers
-    # Negates attached matcher
+    # Negates attached matcher, allowing creating negated matchers on the fly.
+    #
+    # While not being 100% grammatically correct, seems to be readable enough.
     #
     # @example
     #   # before

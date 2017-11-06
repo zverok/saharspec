@@ -6,6 +6,11 @@ RSpec.describe :ret do
 
     it { is_expected.to ret 5 }
     it { is_expected.not_to ret 3 }
+
+    context 'with argument matchers' do
+      it { is_expected.to ret kind_of(Numeric) }
+      it { is_expected.to ret have_attributes(to_s: '5') }
+    end
   end
 
   context 'subject responds to #call' do

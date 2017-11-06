@@ -8,26 +8,26 @@ module Saharspec
       #    subject { calc_something(params) }
       #
       #    # without its_block
-      #    context 'with this params'
+      #    context 'with this params' do
       #      it { expect { subject }.to change(some, :value).by(1) }
       #    end
       #
-      #    context 'with that params'
+      #    context 'with that params' do
       #      it { expect { subject }.to raise_error(SomeError) }
       #    end
       #
       #    # with its_block
-      #    context 'with this params'
+      #    context 'with this params' do
       #      its_block { is_expected.to change(some, :value).by(1) }
       #    end
       #
-      #    context 'with that params'
+      #    context 'with that params' do
       #      its_block { is_expected.to raise_error(SomeError) }
       #    end
       #
-      # @param options Other options that can be passed to usual RSpec example.
-      # @param block [Proc] The test itself. Inside it, `is_expected` (or `are_expected`) is analog of
-      #   `expect { subject }`.
+      # @param options Options (metadata) that can be passed to usual RSpec example.
+      # @param block [Proc] The test itself. Inside it, `is_expected` is a synonom
+      #   for `expect { subject }`.
       #
       def its_block(*options, &block)
         # rubocop:disable Lint/NestedMethodDefinition

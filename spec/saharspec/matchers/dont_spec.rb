@@ -20,7 +20,7 @@ RSpec.describe :dont do
     it {
       expect {
         expect(2).to dont
-      }.to raise_error(ArgumentError)
+      }.to raise_error(ArgumentError, /matcher to negate/)
     }
   end
 end

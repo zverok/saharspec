@@ -50,6 +50,58 @@ its_call { is_expected.to send_message(Net::HTTP, :get).with('http://google.com'
 Note: there is [reasons](https://github.com/rspec/rspec-expectations/issues/934) why it is not in rspec-mocks, though, not very persuative for
 me.
 
+#### `expect { block }.to ret(value)` matcher
+
+Checks whether `#call`-able subject (block, method, command object), when called, return value matching
+to expected.
+
+Useful when this callable subject is your primary one:
+
+```ruby
+# before: option 1. subject is value
+subject { 2 + x }
+
+context 'when numeric' do
+  let(:x) { 3 }
+  it { is_expected.to eq 5 } # DRY
+end
+
+context 'when incompatible' do
+  let(:x) { '3' }
+  it { expect { subject }.to raise_error } # not DRY
+end
+
+# option 2. subject is block
+subject { -> {2 + x } }
+
+context 'when incompatible' do
+  let(:x) { '3' }
+  it { is_expected.to raise_error } # DRY
+end
+
+context 'when numeric' do
+  let(:x) { 3 }
+  it { expect(subject.call).to eq 5 } # not DRY
+end
+
+# after
+require 'saharspec/matchers/ret'
+
+subject { -> { 2 + x } }
+
+context 'when numeric' do
+  let(:x) { 3 }
+  it { is_expected.to ret 5 } # DRY: notice `ret`
+end
+
+context 'when incompatible' do
+  let(:x) { '3' }
+  it { is_expected.to raise_error } # DRY
+end
+```
+
+Plays really well with `its_call` shown below.
+
 #### `eq_multiline(text)` matcher
 
 Dedicated to checking some multiline text generators.
@@ -83,12 +135,18 @@ require 'saharspec/matchers/eq_multiline'
 
 ### `dont`: matcher negation
 
+Another (exprimental) attempt to get rid of `define_negated_matcher`. `dont` is not 100% grammatically
+correct, yet short and readable enought. It just negates attached matcher.
+
 ```ruby
 # before
 RSpec.define_negated_matcher :not_change, :change
+
 it { expect { code }.to do_stuff.and not_change(obj, :attr) }
 
 # after: no `define_negated_matcher` needed
+require 'saharspec/matchers/dont'
+
 it { expect { code }.to do_stuff.and dont.change(obj, :attr) }
 ```
 
@@ -115,18 +173,59 @@ require 'saharspec/its/map'
 its_map(:text) { are_expected.to all not_be_empty }
 ```
 
-#### `its_call`
+#### `its_block`
+
+Allows to DRY-ly refer to "block that calculates subject".
 
 ```ruby
 subject { some_operation_that_may_fail }
 
 # before
-it { expect { subject }.to raise_error(...) }
+context 'success' do
+  it { is_expected.to eq 123 }
+end
+
+context 'fail' do
+  it { expect { subject }.to raise_error(...) }
+end
+
+# after
+require 'saharspec/its/block'
+
+its_block { is_expected.to raise_error(...) }
+```
+
+#### `its_call`
+
+Allows to DRY-ly test callable object with different arguments. Plays well with forementioned `ret`
+matcher.
+
+Before:
+
+```ruby
+# before
+describe '#delete_at' do
+  let(:array) { %i[a b c] }
+
+  it { expect(array.delete_at(1) }.to eq :b }
+  it { expect(array.delete_at(8) }.to eq nil }
+  it { expect { array.delete_at(1) }.to change(array, :length).by(-1) }
+  it { expect { array.delete_at(:b) }.to raise_error TypeError }
+end
 
 # after
 require 'saharspec/its/call'
 
-its_call { is_expected.to raise_error(...) }
+describe '#delete_at' do
+  let(:array) { %i[a b c] }
+
+  subject { array.method(:delete_at) }
+
+  its_call(1) { is_expected.to ret :b }
+  its_call(1) { is_expected.to change(array, :length).by(-1) }
+  its_call(8) { is_expected.to ret nil }
+  its_call(:b) { is_expected.to raise_error TypeError }
+end
 ```
 
 ## State & future

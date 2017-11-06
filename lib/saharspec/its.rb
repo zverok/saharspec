@@ -2,6 +2,7 @@ module Saharspec
   # Wrapper module for all `its_*` RSpec additions.
   #
   # See:
+  #
   # * {Map#its_map #its_map}
   # * {Block#its_block #its_block}
   # * {Call#its_call #its_call}
