@@ -46,6 +46,11 @@ module RSpec
     #
     # Values are tested with `===`, which allows chaining other matchers and patterns to the check.
     #
+    # @note
+    #   There is a case when `ret` fails: when it is _not the first_ in a chain of matchers joined
+    #   by `.and`. That's not exactly the matchers bug, that's how RSpec works (loses block's return
+    #   value passing the block between matchers)
+    #
     # @example
     #    # case 1: block is a subject
     #    subject { -> { do_something } }
@@ -56,7 +61,7 @@ module RSpec
     #
     #    # or, joined:
     #    specify {
-    #      expect { do_something }.to change(some, :value).by(1).and ret(8)
+    #      expect { do_something }.to ret(8).and change(some, :value).by(1)
     #    }
     #
     #    # case 2: with arguments
