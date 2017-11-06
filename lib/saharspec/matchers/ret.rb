@@ -71,10 +71,12 @@ module RSpec
     #    its_call(1..-1) { is_expected.to ret %i[b c] }
     #    its_call('foo') { is_expected.to raise_error TypeError }
     #
-    #    # Note, that values are tested with ===, which means all other matchers could be chained:
+    #    # Values are tested with ===, this also works:
     #    its_call(1) { is_expected.to ret instance_of(Symbol) }
     #    its_call(1..-1) { is_expected.to ret instance_of(Array).and have_attributes(length: 2) }
     #
+    # @param expected Any object. `ret` matcher compares it with block's return value using `===`, so
+    #   it also can be any pattern-alike object, including RSpec matchers.
     def ret(expected)
       Saharspec::Matchers::Ret.new(expected)
     end
