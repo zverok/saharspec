@@ -1,5 +1,10 @@
 # Saharspec history
 
+## 0.0.4 -- 2017-11-07
+
+* Update `its_call` description generation, looks better with `rspec --format doc`
+
+
 ## 0.0.3 -- 2017-11-06
 
 * Introduce new `its`-family addition: `its_call(*args)`

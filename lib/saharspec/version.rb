@@ -4,6 +4,6 @@ module Saharspec
   # @private
   MINOR = 0
   # @private
-  PATCH = 3
+  PATCH = 4
   VERSION = [MAJOR, MINOR, PATCH].join('.')
 end

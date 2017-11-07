@@ -25,7 +25,7 @@ module Saharspec
       #
       def its_call(*args, &block)
         # rubocop:disable Lint/NestedMethodDefinition
-        describe('call') do
+        describe("(#{args.map(&:inspect).join(', ')})") do
           let(:__call_subject) do
             warn 'No need to use its_call without arguments, just it {} will work' if args.empty?
             -> { subject.call(*args) }

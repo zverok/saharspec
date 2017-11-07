@@ -32,6 +32,7 @@ module Saharspec
       #
       def its_map(attribute, *options, &block) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         # rubocop:disable Lint/NestedMethodDefinition
+        # TODO: better desciption for different cases
         describe("map(&:#{attribute})") do
           let(:__its_map_subject) do
             if Array === attribute # rubocop:disable Style/CaseEquality
