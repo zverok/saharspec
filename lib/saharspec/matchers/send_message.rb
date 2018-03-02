@@ -16,8 +16,8 @@ module Saharspec
         self
       end
 
-      def returning(res)
-        @res = res
+      def returning(*res)
+        @res = [*res]
         self
       end
 
@@ -91,7 +91,7 @@ module Saharspec
 
       def allower
         receive(@method).tap do |a|
-          a.and_return(@res) if @res
+          a.and_return(*@res) if @res
           a.and_call_original if @call_original
         end
       end

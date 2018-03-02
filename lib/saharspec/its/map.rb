@@ -11,7 +11,7 @@ module Saharspec
       #   its_map(:length) { is_expected.to eq [4, 2, 6] }
       #
       #   # with attribute chain
-      #   its_map(:'reverse.upcase') { is_expected.to eq %w[TSET EM ESAELP] }
+      #   its_map('reverse.upcase') { is_expected.to eq %w[TSET EM ESAELP] }
       #
       #   # with Hash (or any other object responding to `#[]`)
       #   subject {
@@ -35,8 +35,8 @@ module Saharspec
         # TODO: better desciption for different cases
         describe("map(&:#{attribute})") do
           let(:__its_map_subject) do
-            if Array === attribute # rubocop:disable Style/CaseEquality
-              if subject.all? { |s| Hash === s } # rubocop:disable Style/CaseEquality
+            if Array === attribute
+              if subject.all? { |s| Hash === s }
                 subject.map do |s|
                   attribute.inject(s) { |inner, attr| inner[attr] }
                 end

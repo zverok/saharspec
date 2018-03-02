@@ -13,6 +13,15 @@ RSpec.describe :ret do
     end
   end
 
+  context 'diffability' do
+    subject { -> { [{a: 1}, {b: 2}, {c: 3}] } }
+
+    it {
+      expect { is_expected.to ret [{a: 1}, {b: 2}, {c: 4}] }
+        .to raise_error(RSpec::Expectations::ExpectationNotMetError, /Diff:/)
+    }
+  end
+
   context 'subject responds to #call' do
     let(:cls) {
       Class.new {

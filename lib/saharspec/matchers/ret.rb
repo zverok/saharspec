@@ -4,6 +4,8 @@ module Saharspec
     class Ret
       include RSpec::Matchers::Composable
 
+      attr_reader :actual, :expected
+
       def initialize(expected)
         @expected = expected
       end
@@ -12,10 +14,14 @@ module Saharspec
         @subject = subject
         return false unless subject.respond_to?(:call)
         @actual = subject.call
-        @expected === @actual # rubocop:disable Style/CaseEquality
+        @expected === @actual
       end
 
       def supports_block_expectations?
+        true
+      end
+
+      def diffable?
         true
       end
 
@@ -42,7 +48,8 @@ module RSpec
     # It should be considered instead of simple value matchers (like `eq`) in the situations:
     #
     # 1. Several block behaviors tested in the same test, joined with `.and`, or in separate tests
-    # 2. You test what some block or method returns with arguments, using {Call#its_call #its_call}
+    # 2. You test what some block or method returns with arguments, using
+    #   {Saharspec::Its::Call#its_call #its_call}
     #
     # Values are tested with `===`, which allows chaining other matchers and patterns to the check.
     #

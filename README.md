@@ -9,7 +9,8 @@ specs dry as a desert.
 
 ## Usage
 
-Install it as a usual gem `saharspec`.
+Install it as a usual gem `saharspec` with `gem install` or `gem "saharspec"` in `:test` group of
+your `Gemfile`.
 
 Then, probably in your `spec_helper.rb`
 
@@ -101,6 +102,27 @@ end
 ```
 
 Plays really well with `its_call` shown below.
+
+#### `be_json(value)` and `be_json_sym(value)` matchers
+
+Simple matcher to check if string is valid JSON and optionally if it matches to expected values:
+
+```ruby
+expect('{}').to be_json # ok
+expect('garbage').to be_json
+# expected value to be a valid JSON string but failed: 765: unexpected token at 'garbage'
+
+expect('{"foo": "bar"}').to be_json('foo' => 'bar') # ok
+
+# be_json_sym is more convenient to check with hash keys, parses JSON to symbols
+expect('{"foo": "bar"}').to be_json_sym(foo: 'bar')
+
+# nested matchers work, too
+expect('{"foo": [1, 2, 3]').to be_json_sym(foo: array_including(3))
+
+# We need to go deeper!
+expect(something_large).to be_json_sym(include(meta: include(next_page: Integer)))
+```
 
 #### `eq_multiline(text)` matcher
 
@@ -241,4 +263,4 @@ checking them). Stay tuned.
 
 ## License
 
-[MIT](https://github.com/zverok/time_math2/blob/master/LICENSE.txt).
+[MIT](https://github.com/zverok/saharspec/blob/master/LICENSE.txt).

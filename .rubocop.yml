@@ -15,7 +15,7 @@ AllCops:
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
-Style/PredicateName:
+Naming/PredicateName:
   Enabled: false
 
 Metrics/BlockLength:
@@ -36,3 +36,12 @@ Style/Documentation:
 
 Style/SignalException:
   EnforcedStyle: semantic
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Style/CaseEquality:
+  Enabled: false
