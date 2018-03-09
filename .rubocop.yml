@@ -45,3 +45,6 @@ Style/EmptyCaseCondition:
 
 Style/CaseEquality:
   Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
