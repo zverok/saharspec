@@ -20,7 +20,7 @@ module Saharspec
         @matcher.supports_block_expectations?
       end
 
-      def method_missing(m, *a, &b) # rubocop:disable Style/MethodMissing
+      def method_missing(m, *a, &b) # rubocop:disable Style/MethodMissingSuper
         if @matcher
           @matcher.send(m, *a, &b)
         else

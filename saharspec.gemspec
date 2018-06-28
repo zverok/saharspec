@@ -23,10 +23,10 @@ Gem::Specification.new do |s|
   end
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = '>= 2.1.0'
+  s.required_ruby_version = '>= 2.2.0'
 
-  s.add_development_dependency 'rubocop', '>= 0.40'
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop', '~> 0.57.2'
+  s.add_development_dependency 'rspec', '~> 3.7.0'
   s.add_development_dependency 'rspec-its'
   s.add_development_dependency 'simplecov', '~> 0.9'
   s.add_development_dependency 'rake'
