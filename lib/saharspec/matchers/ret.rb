@@ -30,12 +30,23 @@ module Saharspec
       end
 
       def failure_message
-        "expected to #{description}, " +
-          (@subject.respond_to?(:call) ? "but returned #{@actual.inspect}" : 'but was not callable')
+        case
+        when !@subject.respond_to?(:call)
+          "expected to #{description}, but was not callable"
+        when @expected.respond_to?(:failure_message)
+          "return value mismatch: #{@expected.failure_message}"
+        else
+          "expected to #{description}, but returned #{@actual.inspect}"
+        end
       end
 
       def failure_message_when_negated
-        "expected not to #{description}, but returned it"
+        case
+        when @expected.respond_to?(:failure_message_when_negated)
+          "return value mismatch: #{@expected.failure_message_when_negated}"
+        else
+          "expected not to #{description}, but returned it"
+        end
       end
     end
   end
