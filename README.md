@@ -43,9 +43,9 @@ require 'saharspec/matchers/send_message'
 it {
   expect { fetcher }.to send_message(Net::HTTP, :get).with('http://google.com').returning('not this time')
 }
-# after + its_call
+# after + its_block
 subject { fetcher }
-its_call { is_expected.to send_message(Net::HTTP, :get).with('http://google.com').returning('not this time') }
+its_block { is_expected.to send_message(Net::HTTP, :get).with('http://google.com').returning('not this time') }
 ```
 
 Note: there is [reasons](https://github.com/rspec/rspec-expectations/issues/934) why it is not in rspec-mocks, though, not very persuative for
