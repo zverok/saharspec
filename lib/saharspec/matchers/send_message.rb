@@ -68,7 +68,7 @@ module Saharspec
       end
 
       def description
-        format('to send %p.%s', @target, @method)
+        format('send %p.%s', @target, @method)
       end
 
       def failure_message
