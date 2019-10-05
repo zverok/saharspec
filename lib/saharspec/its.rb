@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   # Wrapper module for all `its_*` RSpec additions.
   #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   module Matchers
     # @private
@@ -11,9 +13,18 @@ module Saharspec
       end
 
       def match(_expected, actual)
-        @matcher or
-          fail(ArgumentError, '`dont` matcher used without any matcher to negate. Usage: dont.other_matcher(args)')
-        !@matcher.matches?(actual)
+        @matcher or fail ArgumentError, '`dont` matcher used without any matcher to negate. '\
+                                        'Usage: dont.other_matcher(args)'
+
+        # https://www.rubydoc.info/github/rspec/rspec-expectations/RSpec%2FMatchers%2FMatcherProtocol:does_not_match%3F
+        # In a negative expectation such as `expect(x).not_to foo`, RSpec will call
+        # `foo.does_not_match?(x)` if this method is defined. If it's not defined it
+        # will fall back to using `!foo.matches?(x)`.
+        if @matcher.respond_to?(:does_not_match?)
+          @matcher.does_not_match?(actual)
+        else
+          !@matcher.matches?(actual)
+        end
       end
 
       def supports_block_expectations?

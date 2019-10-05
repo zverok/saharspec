@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Umbrella module for all Saharspec RSpec DRY-ing features.
 #
 # See {file:README.md} or {Its} and {Matchers} separately.

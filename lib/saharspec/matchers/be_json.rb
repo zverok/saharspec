@@ -1,27 +1,33 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module Saharspec
   module Matchers
     # @private
     class BeJson
-      NONE = Object.new.freeze
       include RSpec::Matchers::Composable
       include RSpec::Matchers # to have #match
+
+      ANY = Object.new.freeze
 
       attr_reader :actual, :expected
 
       def initialize(expected, **parse_opts)
         @expected_matcher = @expected = expected
+
         # wrap to make be_json('foo' => matcher) work, too
-        @expected_matcher = match(expected) unless expected == NONE || expected.respond_to?(:matches?)
+        unless expected == ANY || expected.respond_to?(:matches?)
+          @expected_matcher = match(expected)
+        end
         @parse_opts = parse_opts
       end
 
       def matches?(json)
         @actual = JSON.parse(json, **@parse_opts)
-        @expected_matcher == NONE || @expected_matcher === @actual
-      rescue JSON::ParserError => parse_error
-        @parser_error = parse_error
+        @expected_matcher == ANY || @expected_matcher === @actual
+      rescue JSON::ParserError => e
+        @parser_error = e
         false
       end
 
@@ -34,7 +40,7 @@ module Saharspec
       end
 
       def description
-        if @expected == NONE
+        if @expected == ANY
           'be a valid JSON string'
         else
           expected = @expected.respond_to?(:description) ? @expected.description : @expected
@@ -47,7 +53,7 @@ module Saharspec
           case
           when @parser_error
             "failed: #{@parser_error}"
-          when @expected != NONE
+          when @expected != ANY
             "was #{@actual}"
           end
         "expected value to #{description} but #{failed}"
@@ -81,7 +87,7 @@ module RSpec
     #
     # @param expected Value or matcher to check JSON against. It should implement `#===` method,
     #   so all standard and custom RSpec matchers work.
-    def be_json(expected = Saharspec::Matchers::BeJson::NONE)
+    def be_json(expected = Saharspec::Matchers::BeJson::ANY)
       Saharspec::Matchers::BeJson.new(expected)
     end
 
@@ -92,7 +98,7 @@ module RSpec
     #
     # @param expected Value or matcher to check JSON against. It should implement `#===` method,
     #   so all standard and custom RSpec matchers work.
-    def be_json_sym(expected = Saharspec::Matchers::BeJson::NONE)
+    def be_json_sym(expected = Saharspec::Matchers::BeJson::ANY)
       Saharspec::Matchers::BeJson.new(expected, symbolize_names: true)
     end
   end

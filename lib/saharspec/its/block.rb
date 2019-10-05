@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   module Its
     module Block
@@ -53,4 +55,4 @@ RSpec.configure do |rspec|
   rspec.backtrace_exclusion_patterns << %r{/lib/saharspec/its/block}
 end
 
-RSpec::SharedContext.send(:include, Saharspec::Its::Block)
+RSpec::SharedContext.include Saharspec::Its::Block

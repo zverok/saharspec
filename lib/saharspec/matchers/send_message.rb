@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   module Matchers
     # @private
@@ -33,6 +35,7 @@ module Saharspec
 
       def times
         fail NoMethodError unless @times
+
         self
       end
 

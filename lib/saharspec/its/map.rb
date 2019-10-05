@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   module Its
     module Map
@@ -72,4 +74,4 @@ RSpec.configure do |rspec|
   rspec.backtrace_exclusion_patterns << %r{/lib/saharspec/its/map}
 end
 
-RSpec::SharedContext.send(:include, Saharspec::Its::Map)
+RSpec::SharedContext.include Saharspec::Its::Map

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   module Matchers
     # @private
@@ -13,6 +15,7 @@ module Saharspec
       def matches?(subject)
         @subject = subject
         return false unless subject.respond_to?(:call)
+
         @actual = subject.call
         @expected === @actual
       end

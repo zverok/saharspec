@@ -86,6 +86,16 @@ RSpec.describe :send_message do
           .to send_message(obj1, :meth)
           .and send_message(obj2, :meth)
       }
+
+      context 'with dont.' do
+        it {
+          require 'saharspec/matchers/dont'
+
+          expect { obj1.meth}
+            .to send_message(obj1, :meth)
+            .and dont.send_message(obj2, :meth)
+        }
+      end
     end
 
     context 'ordered' do

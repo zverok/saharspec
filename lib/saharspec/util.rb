@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   module Util
     def multiline(string)

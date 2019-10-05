@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saharspec
   # All Saharspec matchers, when required, included into `RSpec::Matchers` namespace.
   #
