@@ -3,15 +3,16 @@
 ## 0.0.6 -- 2019-10-05
 
 * Fix `dont.send_message` combination behavior (and generally, behavior of `dont.` with matchers
-  defining custom `does_not_matches?`)
+  defining custom `does_not_matches?`);
 * Better `ret` matcher failure message when there is a complicated matcher on the right side (use
-  its `failure_message` instead of `description`)
-* Update `send_message` matcher description to be more readable.
+  its `failure_message` instead of `description`);
+* Update `send_message` matcher description to be more readable;
+* Drop Ruby 2.2 support.
 
 ## 0.0.5 -- 2018-03-03
 
 * `be_json` matcher;
-* make `ret` diffable;
+* make `ret` diffable.
 
 ## 0.0.4 -- 2017-11-07
 
