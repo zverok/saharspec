@@ -1,5 +1,9 @@
 # Saharspec history
 
+## 0.0.7 -- 2020-04-11
+
+* Allow `its_call` to work properly with keyword args on Ruby 2.7
+
 ## 0.0.6 -- 2019-10-05
 
 * Fix `dont.send_message` combination behavior (and generally, behavior of `dont.` with matchers
