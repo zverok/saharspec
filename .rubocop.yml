@@ -21,7 +21,7 @@ Naming/PredicateName:
 Metrics/BlockLength:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   IgnoredPatterns: ['\#.*'] # ignore long comments
 
@@ -47,5 +47,22 @@ Style/EmptyCaseCondition:
 Style/CaseEquality:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
+
+# Should always be configured:
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+

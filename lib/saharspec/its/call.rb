@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ruby2_keywords'
+
 module Saharspec
   module Its
     module Call
@@ -25,7 +27,7 @@ module Saharspec
       #      its_call(5) { is_expected.to change(array, :length).by(1) }
       #    end
       #
-      def its_call(*args, &block)
+      ruby2_keywords def its_call(*args, &block)
         # rubocop:disable Lint/NestedMethodDefinition
         describe("(#{args.map(&:inspect).join(', ')})") do
           let(:__call_subject) do
