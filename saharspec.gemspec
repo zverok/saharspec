@@ -27,7 +27,9 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'ruby2_keywords'
 
-  s.add_development_dependency 'rubocop', '~> 0.93'
+  if RUBY_VERSION >= '2.4' # Newest Rubocop fails on 2.3
+    s.add_development_dependency 'rubocop', '~> 0.93'
+  end
   s.add_development_dependency 'rspec', '~> 3.7.0'
   s.add_development_dependency 'rspec-its'
   s.add_development_dependency 'simplecov', '~> 0.9'

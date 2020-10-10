@@ -157,7 +157,7 @@ require 'saharspec/matchers/eq_multiline'
 
 ### `dont`: matcher negation
 
-Another (exprimental) attempt to get rid of `define_negated_matcher`. `dont` is not 100% grammatically
+Allows to get rid of gazilliions of `define_negated_matcher`. `dont` is not 100% grammatically
 correct, yet short and readable enought. It just negates attached matcher.
 
 ```ruby

@@ -1,5 +1,9 @@
 # Saharspec history
 
+## 0.0.8 -- 2020-10-10
+
+* Better `dont` failure message (just use underlying matchers `failure_message_when_negated`)
+
 ## 0.0.7 -- 2020-04-11
 
 * Allow `its_call` to work properly with keyword args on Ruby 2.7
