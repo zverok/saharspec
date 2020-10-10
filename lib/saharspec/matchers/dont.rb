@@ -4,7 +4,8 @@ module Saharspec
   module Matchers
     # @private
     class Not < RSpec::Matchers::BuiltIn::BaseMatcher
-      def initialize
+      def initialize(*)
+        super
         @delegator = Delegator.new
       end
 
@@ -27,11 +28,15 @@ module Saharspec
         end
       end
 
+      def failure_message
+        @matcher.failure_message_when_negated
+      end
+
       def supports_block_expectations?
         @matcher.supports_block_expectations?
       end
 
-      def method_missing(m, *a, &b) # rubocop:disable Style/MethodMissingSuper
+      def method_missing(m, *a, &b) # rubocop:disable Lint/MissingSuper
         if @matcher
           @matcher.send(m, *a, &b)
         else
@@ -41,7 +46,7 @@ module Saharspec
         self
       end
 
-      def respond_to_missing?(method, include_private = false)
+      def respond_to_missing?(method, include_private = false) # rubocop:disable Lint/MissingSuper
         if @matcher
           @matcher.respond_to?(method, include_private)
         else

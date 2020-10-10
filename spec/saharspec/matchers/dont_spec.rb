@@ -23,4 +23,16 @@ RSpec.describe :dont do
       }.to raise_error(ArgumentError, /matcher to negate/)
     }
   end
+
+  describe '#failure_message' do
+    subject { matcher.failure_message }
+
+    context 'properly uses nested negated message' do
+      let(:matcher) { dont.raise_error }
+
+      before { matcher === -> { raise ArgumentError, "TEST" } }
+
+      it { is_expected.to match /^expected no Exception, got \#<ArgumentError: TEST>/ }
+    end
+  end
 end

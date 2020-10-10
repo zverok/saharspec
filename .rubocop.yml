@@ -2,6 +2,7 @@ inherit_from: .rubocop_todo.yml
 #require: rubocop-rspec
 
 AllCops:
+  NewCops: enable
   Include:
     - 'lib/**/*'
   Exclude:
