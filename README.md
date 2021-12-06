@@ -73,16 +73,16 @@ context 'when incompatible' do
 end
 
 # option 2. subject is block
-subject { -> {2 + x } }
-
-context 'when incompatible' do
-  let(:x) { '3' }
-  it { is_expected.to raise_error } # DRY
-end
+subject { -> { 2 + x } }
 
 context 'when numeric' do
   let(:x) { 3 }
   it { expect(subject.call).to eq 5 } # not DRY
+end
+
+context 'when incompatible' do
+  let(:x) { '3' }
+  it { is_expected.to raise_error } # DRY
 end
 
 # after
