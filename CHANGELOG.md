@@ -1,5 +1,9 @@
 # Saharspec history
 
+## 0.0.9 -- 2022-20-04
+
+* Properly lint RSpec specs using `its_block`/`its_call`/`its_map` with `rubocop-rspec` >= 2.0 ([@ka8725][])
+
 ## 0.0.8 -- 2020-10-10
 
 * Better `dont` failure message (just use underlying matchers `failure_message_when_negated`)
