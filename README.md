@@ -250,6 +250,16 @@ describe '#delete_at' do
 end
 ```
 
+### Linting with RuboCop RSpec
+
+`rubocop-rspec` fails to properly detect RSpec constructs that Saharspec defines (`its_call`, `its_block`, `its_map`).
+Make sure to use `rubocop-rspec` 2.0 or newer and add the following to your `.rubocop.yml`:
+
+```yaml
+inherit_gem:
+  saharaspec: config/rubocop-rspec.yml
+```
+
 ## State & future
 
 I use all of the components of the library on daily basis. Probably, I will extend it with other
