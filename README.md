@@ -257,7 +257,7 @@ Make sure to use `rubocop-rspec` 2.0 or newer and add the following to your `.ru
 
 ```yaml
 inherit_gem:
-  saharaspec: config/rubocop-rspec.yml
+  saharspec: config/rubocop-rspec.yml
 ```
 
 ## State & future
