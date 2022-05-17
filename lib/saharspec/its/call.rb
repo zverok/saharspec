@@ -31,11 +31,11 @@ module Saharspec
         # rubocop:disable Lint/NestedMethodDefinition
         describe("(#{args.map(&:inspect).join(', ')})") do
           let(:__call_subject) do
-            -> { subject.call(*args) }
+            subject.call(*args)
           end
 
           def is_expected
-            expect(__call_subject)
+            expect { __call_subject }
           end
 
           example(nil, &block)

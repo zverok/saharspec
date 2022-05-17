@@ -3,7 +3,7 @@
 module Saharspec
   module Its
     module Block
-      # Creates nested example which converts current subject to a block-subject.
+      # Creates nested example that redefines implicit `is_expected` to use subject as a block.
       #
       # @example
       #
@@ -34,12 +34,13 @@ module Saharspec
       def its_block(*options, &block)
         # rubocop:disable Lint/NestedMethodDefinition
         describe('as block') do
+          # FIXME: Not necessary? (Previously, wrapped the subject in lambda, now just repeats it)
           let(:__call_subject) do
-            -> { subject }
+            subject
           end
 
           def is_expected
-            expect(__call_subject)
+            expect { __call_subject }
           end
 
           example(nil, *options, &block)

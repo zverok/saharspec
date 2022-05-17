@@ -1,8 +1,9 @@
 # Saharspec history
 
-## 0.0.9 -- 2022-20-04
+## 0.0.9 -- 2022-05-17
 
-* Properly lint RSpec specs using `its_block`/`its_call`/`its_map` with `rubocop-rspec` >= 2.0 ([@ka8725][])
+* Properly lint RSpec specs using `its_block`/`its_call`/`its_map` with `rubocop-rspec` >= 2.0 ([@ka8725](https://github.com/ka8725))
+* Fix `its_block` and `its_call` to support RSpec 3.11
 
 ## 0.0.8 -- 2020-10-10
 
