@@ -1,13 +1,15 @@
 RSpec:
   Language:
-    Includes:
-      Examples:
+    Examples:
+      Regular:
         - its_block
         - its_call
         - its_map
-        - fits_block
-        - fits_call
-        - fits_map
+      Skipped:
         - xits_block
         - xits_call
         - xits_map
+      Focused:
+        - fits_block
+        - fits_call
+        - fits_map
