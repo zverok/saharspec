@@ -7,7 +7,6 @@
 module Saharspec
 end
 
-require 'rspec/core'
 require_relative 'saharspec/its'
 require_relative 'saharspec/matchers'
 require_relative 'saharspec/util'
