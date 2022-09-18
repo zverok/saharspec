@@ -69,6 +69,14 @@ module Saharspec
   end
 end
 
+unless defined?(RSpec)
+  if Gem::Specification.all_names.include?('rspec')
+    raise 'RSpec is installed but not yet loaded'
+  end
+
+  raise 'RSpec is not present in the current environment'
+end
+
 RSpec.configure do |rspec|
   rspec.extend Saharspec::Its::Map
   rspec.backtrace_exclusion_patterns << %r{/lib/saharspec/its/map}
