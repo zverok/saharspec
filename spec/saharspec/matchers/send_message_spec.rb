@@ -91,7 +91,7 @@ RSpec.describe :send_message do
         it {
           require 'saharspec/matchers/dont'
 
-          expect { obj1.meth}
+          expect { obj1.meth }
             .to send_message(obj1, :meth)
             .and dont.send_message(obj2, :meth)
         }

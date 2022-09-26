@@ -47,11 +47,8 @@ module Saharspec
 end
 
 unless defined?(RSpec)
-  if Gem::Specification.all_names.include?('rspec')
-    raise 'RSpec is installed but not yet loaded'
-  end
-
-  raise 'RSpec is not present in the current environment'
+  raise 'RSpec is not present in the current environment, check that `rspec` ' \
+        'is present in your Gemfile and is in the same group as `saharspec`' \
 end
 
 RSpec.configure do |rspec|

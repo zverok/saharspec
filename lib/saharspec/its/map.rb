@@ -32,7 +32,7 @@ module Saharspec
       # @param block [Proc] The test itself. Inside it, `is_expected` (or `are_expected`) is related to result
       #  of `map`ping the subject.
       #
-      def its_map(attribute, *options, &block) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      def its_map(attribute, *options, &) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         # rubocop:disable Lint/NestedMethodDefinition
         # TODO: better desciption for different cases
         describe("map(&:#{attribute})") do
@@ -61,7 +61,7 @@ module Saharspec
 
           options << {} unless options.last.is_a?(Hash)
 
-          example(nil, *options, &block)
+          example(nil, *options, &)
         end
         # rubocop:enable Lint/NestedMethodDefinition
       end
@@ -70,11 +70,8 @@ module Saharspec
 end
 
 unless defined?(RSpec)
-  if Gem::Specification.all_names.include?('rspec')
-    raise 'RSpec is installed but not yet loaded'
-  end
-
-  raise 'RSpec is not present in the current environment'
+  raise 'RSpec is not present in the current environment, check that `rspec` ' \
+        'is present in your Gemfile and is in the same group as `saharspec`' \
 end
 
 RSpec.configure do |rspec|
