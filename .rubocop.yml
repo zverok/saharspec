@@ -12,6 +12,7 @@ AllCops:
     - 'tmp/**'
     - 'lib/saharspec/matchers/request_webmock.rb'
   DisplayCopNames: true
+  TargetRubyVersion: 2.7
 
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
@@ -67,3 +68,5 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
+Metrics/AbcSize:
+  Max: 30

@@ -250,6 +250,49 @@ describe '#delete_at' do
 end
 ```
 
+### Metadata handlers
+
+(Experimental.) Those aren't required by default, or by `require 'saharspec/metadata'`, you need to require each by its own. This is done to lessen the confusion if metadata processing isn't expected.
+
+#### `lets:`
+
+A shortcut for defining simple `let`s in the description
+
+```ruby
+let(:user) { create(:user, role: role) }
+
+# before: a lot of code to say simple things:
+
+context 'when admin' do
+ let(:role) { :admin }
+
+ it { is_expected.to be_allowed }
+end
+
+context 'when user' do
+ let(:role) { :user }
+
+ it { is_expected.to be_denied }
+end
+
+# after
+
+context 'when admin', lets: {role: :admin} do
+ it { is_expected.to be_allowed }
+end
+
+context 'when user', lets: {role: :user} do
+ it { is_expected.to be_denied }
+end
+
+# you can also give empty descriptions, then they would be auto-generated
+
+# generates a context with description "with role=:admin"
+context '', lets: {role: :admin} do
+ it { is_expected.to be_allowed }
+end
+```
+
 ### Linting with RuboCop RSpec
 
 `rubocop-rspec` fails to properly detect RSpec constructs that Saharspec defines (`its_call`, `its_block`, `its_map`).

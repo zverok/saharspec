@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+defined?(RSpec) or
+  fail 'RSpec is not present in the current environment, check that `rspec` ' \
+        'is present in your Gemfile and is in the same group as `saharspec`' \
+
 # Umbrella module for all Saharspec RSpec DRY-ing features.
 #
-# See {file:README.md} or {Its} and {Matchers} separately.
+# See {file:README.md} or {Its}, {Matchers}, and {Metadata} separately.
 #
 module Saharspec
 end

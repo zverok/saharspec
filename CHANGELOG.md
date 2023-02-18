@@ -1,5 +1,11 @@
 # Saharspec history
 
+## 0.0.10 -- 2023-02-18
+
+* Add `lets:` metadata helper for DRYer defining of simple `let`s in multiple contexts;
+* Minimum supported Ruby version is 2.7
+* Add a handler for when `saharspec` is called before/without `rspec`, to provide an informative error message ([@Vagab](https://github.com/Vagab))
+
 ## 0.0.9 -- 2022-05-17
 
 * Properly lint RSpec specs using `its_block`/`its_call`/`its_map` with `rubocop-rspec` >= 2.0 ([@ka8725](https://github.com/ka8725))
