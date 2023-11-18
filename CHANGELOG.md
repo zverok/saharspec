@@ -1,5 +1,25 @@
 # Saharspec history
 
+## master
+
+* Fix `lets:` to really work :) Including nested contexts redefining `lets:` multiple times.
+* Add experimental `it_with`/`its_blocks_with` additions:
+  ```ruby
+  subject { x + y }
+
+  it_with(x: 1, y: 2) { is_expected.to eq 3 }
+
+  # Same as:
+  context 'with x=1, y=2' do
+    let(:x) { 1 }
+    let(:y) { 2 }
+
+    it { is_expected.to eq 3 }
+  end
+  ```
+* TODO: Rubocop cops suggesting the simplifications?
+* Add more "copies" of the `expect(...)`/`allow(...)` RSpec DSL to `send_message`: `at_least`/`twice`/`trice`/`yielding`.
+
 ## 0.0.10 -- 2023-02-18
 
 * Add `lets:` metadata helper for DRYer defining of simple `let`s in multiple contexts;

@@ -28,3 +28,5 @@ module Saharspec
   module Metadata
   end
 end
+
+require_relative 'metadata/lets'
