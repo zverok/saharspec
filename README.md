@@ -48,8 +48,7 @@ subject { fetcher }
 its_block { is_expected.to send_message(Net::HTTP, :get).with('http://google.com').returning('not this time') }
 ```
 
-Note: there is [reasons](https://github.com/rspec/rspec-expectations/issues/934) why it is not in rspec-mocks, though, not very persuative for
-me.
+Note: there are [reasons](https://github.com/rspec/rspec-expectations/issues/934) why it is not in rspec-mocks, though, not very persuative for me.
 
 #### `expect { block }.to ret(value)` matcher
 
@@ -287,8 +286,16 @@ end
 
 # you can also give empty descriptions, then they would be auto-generated
 
-# generates a context with description "with role=:admin"
+# generates a context with description "role=:admin"
 context '', lets: {role: :admin} do
+ it { is_expected.to be_allowed }
+end
+
+# alternatively, if context description ends with a space, the description of `lets` would be
+# added, too.
+
+# generates a context with description "with role=:admin"
+context 'with ', lets: {role: :admin} do
  it { is_expected.to be_allowed }
 end
 ```
