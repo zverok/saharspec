@@ -33,8 +33,13 @@ module Saharspec
         self
       end
 
+      def at_least(n)
+        @at_least = n
+        self
+      end
+
       def times
-        fail NoMethodError unless @times
+        fail NoMethodError unless @times || @at_least
 
         self
       end
@@ -47,8 +52,18 @@ module Saharspec
         exactly(2)
       end
 
+      def thrice
+        exactly(3)
+      end
+
       def ordered
         @ordered = true
+        self
+      end
+
+      def yielding(*args, &block)
+        @yield_args = args
+        @yield_block = block
         self
       end
 
@@ -103,7 +118,9 @@ module Saharspec
         have_received(@method).tap do |e|
           e.with(*@arguments) if @arguments
           e.exactly(@times).times if @times
+          e.at_least(@times).times if @at_least
           e.ordered if @ordered
+          e.and_yield(*@yield_args, &@yield_block) if @yield_args
         end
       end
     end
