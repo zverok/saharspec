@@ -36,7 +36,7 @@ module Saharspec
         @matcher.supports_block_expectations?
       end
 
-      def method_missing(m, *a, &b) # rubocop:disable Lint/MissingSuper
+      def method_missing(m, *a, &b)
         if @matcher
           @matcher.send(m, *a, &b)
         else
@@ -46,7 +46,7 @@ module Saharspec
         self
       end
 
-      def respond_to_missing?(method, include_private = false) # rubocop:disable Lint/MissingSuper
+      def respond_to_missing?(method, include_private = false)
         if @matcher
           @matcher.respond_to?(method, include_private)
         else
