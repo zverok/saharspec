@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require 'rspec/core'
+defined?(RSpec) or
+  fail 'RSpec is not present in the current environment, check that `rspec` ' \
+       'is present in your Gemfile and is in the same group as `saharspec`' \
 
 # Umbrella module for all Saharspec RSpec DRY-ing features.
 #
