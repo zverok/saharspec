@@ -9,7 +9,7 @@ module Saharspec
             let(name) { val }
           end
 
-          def is_expected
+          def is_expected # rubocop:disable Lint/NestedMethodDefinition
             expect { subject }
           end
 

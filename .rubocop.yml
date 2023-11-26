@@ -70,3 +70,6 @@ Style/HashTransformValues:
 
 Metrics/AbcSize:
   Max: 30
+
+Style/NumberedParametersLimit:
+  Max: 2
