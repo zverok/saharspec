@@ -3,6 +3,18 @@
 ## master
 
 * Fix `lets:` to really work :) Including nested contexts redefining `lets:` multiple times.
+* Alternative to `lets:` (too magical!), is `instant_context`:
+  ```ruby
+  instant_context lets: {a: 1} do
+    # ...
+  end
+
+  # is the same as
+  context "with a=1" do
+    let(:a) { 1 }
+    # ...
+  end
+  ```
 * Add experimental `it_with`/`its_blocks_with` additions:
   ```ruby
   subject { x + y }
