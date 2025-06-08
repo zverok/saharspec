@@ -1,9 +1,8 @@
 # Saharspec: Specs DRY as Sahara
 
-[![Gem Version](https://badge.fury.io/rb/saharspec.svg)](http://badge.fury.io/rb/saharspec)
-[![Build Status](https://travis-ci.org/zverok/saharspec.svg?branch=master)](https://travis-ci.org/zverok/saharspec)
+**NOTE: The gem was renamed to [moarspec](https://github.com/zverok/moarspec) (for obvious reasons). Please update your gemfiles.**
 
-<big>NOTE: The gem will be renamed to **moarspec** soon (for obvious reasons). Please update your gemfiles.</big>
+---
 
 **saharspec** is a set of additions to RSpec.
 
