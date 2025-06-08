@@ -249,13 +249,46 @@ describe '#delete_at' do
 end
 ```
 
-### Metadata handlers
+#### `it_with`/`its_block_with`
 
-(Experimental.) Those aren't required by default, or by `require 'saharspec/metadata'`, you need to require each by its own. This is done to lessen the confusion if metadata processing isn't expected.
+Allows to adjust `let` values inline with `it` definition. Especially useful when there are many cases to test, and each one requires only one simple test with simple `let` replacements.
 
-#### `lets:`
+```ruby
+# before
+describe '#+' do
+  subject { x + y }
 
-A shortcut for defining simple `let`s in the description
+  context 'with positive values' do
+    let(:x) { 1 }
+    let(:y) { 2 }
+
+    it { is_expected.to eq 3 }
+  end
+
+  context 'with negative values' do
+    # 4 more lines
+  end
+
+  context 'with non-numeric value' do
+    # 4 more lines
+  end
+end
+
+# after
+describe '#+' do
+  subject { x + y }
+
+  it_with(x: 1, y: 2) { is_expected.to eq 3 }
+  it_with(x: 1, y: -2) { is_expected.to eq -1 }
+  its_block_with(x: 1, y: nil) { is_expected.to raise_error }
+end
+```
+
+### Example group helpers
+
+#### `instant_context`
+
+A shortcut for defining simple `let`s in the context description:
 
 ```ruby
 let(:user) { create(:user, role: role) }
@@ -276,29 +309,23 @@ end
 
 # after
 
-context 'when admin', lets: {role: :admin} do
+instant_context 'when admin', lets: {role: :admin} do
  it { is_expected.to be_allowed }
 end
 
-context 'when user', lets: {role: :user} do
+instant_context 'when user', lets: {role: :user} do
  it { is_expected.to be_denied }
 end
 
 # you can also give empty descriptions, then they would be auto-generated
 
 # generates a context with description "role=:admin"
-context '', lets: {role: :admin} do
- it { is_expected.to be_allowed }
-end
-
-# alternatively, if context description ends with a space, the description of `lets` would be
-# added, too.
-
-# generates a context with description "with role=:admin"
-context 'with ', lets: {role: :admin} do
+instant_context lets: {role: :admin} do
  it { is_expected.to be_allowed }
 end
 ```
+
+_Note: when each context has only one example, `it_with` (see above) is probably more convenient. `instant_context` shines when the contexts are numerous and simple, but have several examples each._
 
 ### Linting with RuboCop RSpec
 
@@ -319,7 +346,7 @@ checking them). Stay tuned.
 
 ## Author
 
-[Victor Shepelev](http://zverok.github.io/)
+[Victor Shepelev](http://zverok.space/)
 
 ## License
 

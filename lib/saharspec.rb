@@ -6,11 +6,12 @@ defined?(RSpec) or
 
 # Umbrella module for all Saharspec RSpec DRY-ing features.
 #
-# See {file:README.md} or {Its}, {Matchers}, and {Metadata} separately.
+# See {file:README.md} or {Its}, {Matchers}, and {ExampleGroups} separately.
 #
 module Saharspec
 end
 
 require_relative 'saharspec/its'
 require_relative 'saharspec/matchers'
+require_relative 'saharspec/example_groups'
 require_relative 'saharspec/util'

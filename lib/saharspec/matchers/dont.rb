@@ -54,6 +54,16 @@ module Saharspec
         end
       end
 
+      # ActiveSupport 7.1+ defines Object#with, and thus it doesn't go to `method_missing`.
+      # So, matchers like `dont.send_message(...).with(...)` stop working correctly.
+      #
+      # This is dirty, but I don't see another way.
+      if Object.instance_methods.include?(:with)
+        def with(...)
+          @matcher.with(...)
+        end
+      end
+
       class Delegator
         include RSpec::Matchers
       end
