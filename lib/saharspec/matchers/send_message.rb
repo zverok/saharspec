@@ -38,6 +38,11 @@ module Saharspec
         self
       end
 
+      def at_most(n)
+        @at_most = n
+        self
+      end
+
       def times
         fail NoMethodError unless @times || @at_least
 
@@ -118,7 +123,8 @@ module Saharspec
         have_received(@method).tap do |e|
           e.with(*@arguments) if @arguments
           e.exactly(@times).times if @times
-          e.at_least(@times).times if @at_least
+          e.at_least(@at_least).times if @at_least
+          e.at_most(@at_most).times if @at_most
           e.ordered if @ordered
           e.and_yield(*@yield_args, &@yield_block) if @yield_args
         end
