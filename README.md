@@ -3,9 +3,9 @@
 [![Gem Version](https://badge.fury.io/rb/saharspec.svg)](http://badge.fury.io/rb/saharspec)
 [![Build Status](https://travis-ci.org/zverok/saharspec.svg?branch=master)](https://travis-ci.org/zverok/saharspec)
 
-**saharspec** is a set of additions to RSpec. It's name is a pun on Russian word "сахар"
-("sahar", means "sugar") and Sahara desert. So, it is a set of RSpec sugar, to make your
-specs dry as a desert.
+<big>NOTE: The gem will be renamed to **moarspec** soon (for obvious reasons). Please update your gemfiles.</big>
+
+**saharspec** is a set of additions to RSpec.
 
 ## Usage
 
