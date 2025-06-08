@@ -14,7 +14,7 @@ module Saharspec
       end
 
       def match(_expected, actual)
-        @matcher or fail ArgumentError, '`dont` matcher used without any matcher to negate. '\
+        @matcher or fail ArgumentError, '`dont` matcher used without any matcher to negate. ' \
                                         'Usage: dont.other_matcher(args)'
 
         # https://www.rubydoc.info/github/rspec/rspec-expectations/RSpec%2FMatchers%2FMatcherProtocol:does_not_match%3F
@@ -36,11 +36,11 @@ module Saharspec
         @matcher.supports_block_expectations?
       end
 
-      def method_missing(m, *a, &b)
+      def method_missing(m, *a, &)
         if @matcher
-          @matcher.send(m, *a, &b)
+          @matcher.send(m, *a, &)
         else
-          @matcher = @delegator.send(m, *a, &b)
+          @matcher = @delegator.send(m, *a, &)
         end
 
         self
