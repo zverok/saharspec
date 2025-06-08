@@ -25,11 +25,11 @@ module Saharspec
       #      its_call(5) { is_expected.to change(array, :length).by(1) }
       #    end
       #
-      ruby2_keywords def its_call(*args, &block)
+      def its_call(*args, **kwargs, &block)
         # rubocop:disable Lint/NestedMethodDefinition
         describe("(#{args.map(&:inspect).join(', ')})") do
           let(:__call_subject) do
-            subject.call(*args)
+            subject.call(*args, **kwargs)
           end
 
           def is_expected

@@ -7,7 +7,8 @@ RSpec.describe :be_json do
     it { expect('definitely not').not_to be_json }
     it {
       expect { expect('definitely not').to be_json }
-        .to raise_error(RSpec::Expectations::ExpectationNotMetError, /unexpected .*: 'definitely not'/)
+        .to raise_error(RSpec::Expectations::ExpectationNotMetError,
+                        /expected value to be a valid JSON.*'definitely not'/)
     }
   end
 

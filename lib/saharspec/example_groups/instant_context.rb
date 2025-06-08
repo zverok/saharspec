@@ -2,6 +2,35 @@
 
 module Saharspec
   module ExampleGroups
+    # Provides a shorter way to define a context and its `let` values in one statement.
+    #
+    # @example
+    #   subject { x + y }
+    #
+    #   instant_context 'with numeric values', lets: {x: 1, y: 2} do
+    #     it { is_expected.to eq 3 }
+    #   end
+    #   # or, without an explicit description:
+    #   instant_context lets: {x: 1, y: 2} do
+    #     it { is_expected.to eq 3 }
+    #   end
+    #
+    #   # is equivalent to
+    #
+    #   context 'with numeric values (x=1, y=2)' do
+    #     let(:x) { 1 }
+    #     let(:y) { 2 }
+    #
+    #     it { is_expected.to eq 3 }
+    #   end
+    #
+    #   # without explicit description, it is equivalent to
+    #   context 'with x=1, y=2' do
+    #     # ...
+    #   end
+    #
+    # See also {Saharspec::Its::With#it_with #it_with} for a way to define just one example with
+    # its `let`s.
     module InstantContext
       def instant_context(description = nil, lets:, **metadata, &block)
         full_description = "with #{lets.map { "#{_1}=#{_2.inspect}" }.join(', ')}"

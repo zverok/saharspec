@@ -2,7 +2,8 @@
 
 ## master
 
-* Fix `lets:` to really work :) Including nested contexts redefining `lets:` multiple times.
+* Drop support for Ruby < 3.1
+* ~~Fix `lets:` to really work :)~~ Remove `lets:` completely.
 * Alternative to `lets:` (too magical!), is `instant_context`:
   ```ruby
   instant_context lets: {a: 1} do
@@ -15,7 +16,7 @@
     # ...
   end
   ```
-* Add experimental `it_with`/`its_blocks_with` additions:
+* In the same spirit, created `it_with`/`its_blocks_with` additions:
   ```ruby
   subject { x + y }
 
@@ -29,8 +30,9 @@
     it { is_expected.to eq 3 }
   end
   ```
-* TODO: Rubocop cops suggesting the simplifications?
+  * TODO: Rubocop cops suggesting the simplifications?
 * Add more "copies" of the `expect(...)`/`allow(...)` RSpec DSL to `send_message`: `at_least`/`twice`/`trice`/`yielding`.
+* A workaround for ActiveSupport 7.1 `Object#with` for `dont` matcher.
 
 ## 0.0.10 -- 2023-02-18
 
